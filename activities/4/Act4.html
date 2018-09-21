@@ -1,0 +1,28 @@
+<DOCTYPE! html>
+<html>
+<head>
+    <title>Activity #4</title>
+</head>
+<body>
+    <h1>Find a city.</h1>
+    Enter a city name beginning with 'M'
+    <input type="text" id="cityName" onkeyup="citySearch()">
+    <div id="displayArea">City names:</div>
+    <script>
+        var cityList = ["Mordor","Morrowind","Morthal","Mirkwood"];
+        var citySearch = function() {
+            var name = document.getElementById("cityName").value;
+
+            var returner = document.getElementById("displayArea");
+            var inner = "<ul>";
+            for (var i=0; i < cityList.length; i++) {
+                if(cityList[i].startsWith(name)) {
+                    inner+="<li>"+cityList[i]+"</li>";
+                }
+            }
+            inner+="</ul>";
+            returner.innerHTML = inner;
+        };
+    </script>
+</body>
+</html>
