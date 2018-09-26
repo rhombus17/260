@@ -16,15 +16,29 @@
 
     <script>
         $(document).ready(function() {
-            $( "#cityField" ).keyup(function() {
-                $.getJSON("staticCity.txt",function(data) {
-                    console.log(data);
-                    console.log(data[0]);
-                    console.log("Got "+data[0].city);
-                });
-                $("#txtHint").text("Keyup "+$("#cityField").val());
+        $( "#cityField" ).keyup(function() {
+            var url = "http://bioresearch.byu.edu/cs260/jquery/getcity.cgi?q="+$("#cityField").val().toUpperCase();
+            $.getJSON(url,function(data) {
+            var everything;
+            everything = "<ul>";
+            $.each(data, function(i,item) {
+              everything += "<li> "+data[i].city;
             });
+            if (document.getElementById("cityField").value.toUpperCase() == "ZION") {everything += "<li>Fruit Heights</li>";}
+            console.log(everything);
+            console.log(document.getElementById("cityField").value);
+            everything += "</ul>";
+            $("#txtHint").html(everything);
+          })
+          .done(function() { console.log('getJSON request succeeded!'); })
+          .fail(function(jqXHR, textStatus, errorThrown) { 
+            console.log('getJSON request failed! ' + textStatus); 
+            console.log("incoming "+jqXHR.responseText);
+          })
+          .always(function() { console.log('getJSON request ended!');
+          });
         });
-    </script>
+        });
+</script>
 </body>
 </html>
