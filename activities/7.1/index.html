@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12" id="title">
+                <h1>My Family History List</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10" ng-app="familyTree" ng-controller="famCtrl">
+                <div class="row">
+                    <form ng-submit="addNew()">
+                        <input type="text" ng-model="treeperson" placeholder="Person">
+                        <input type="text" ng-model="treefather" placeholder="Father">
+                        <input type="text" ng-model="treemother" placeholder="Mother">
+                        <input type="submit" value="Add New">
+                    </form>
+                </div>
+                <div class="row" ng-repeat="x in familyList">
+                    <div class="item"><input type="checkbox" ng-model="x.done"><span>{{x.treeText}}</span></div>
+                </div>
+                <div class="row">
+                    <p><button ng-click="remove()">Remove marked</button></p>
+                </div>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <script>
+        var app = angular.module('familyTree', []);
+        app.controller('famCtrl', function($scope) {
+            $scope.familyList = [{treeText: "Joe, Dad, Mom", done:false}];
+            $scope.addNew = function () {
+                $scope.familyList.push({treeText:($scope.treeperson + ", " + $scope.treefather + ", " + $scope.treemother), done:false})
+                $scope.treeperson = "";
+                $scope.treemother = "";
+                $scope.treefather = "";
+            }
+            $scope.remove = function() {
+                var oldList = $scope.familyList;
+                $scope.familyList = [];
+                angular.forEach(oldList, function(x) {
+                    console.log(x.done);
+                    if (!x.done) $scope.familyList.push(x);
+                });
+            }
+        })
+    </script>
+</body>
+</html>

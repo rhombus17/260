@@ -1,0 +1,14 @@
+#title {
+    background-color: grey;
+    text-align: center;
+}
+
+.item {
+    background-color: #bbb;
+    margin: 5px;
+    padding-right: 5px;
+}
+
+input {
+    margin: 5px;
+}
